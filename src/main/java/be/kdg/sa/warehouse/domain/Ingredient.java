@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name="wa_ingredient")
 public class Ingredient {
 
     @Id
