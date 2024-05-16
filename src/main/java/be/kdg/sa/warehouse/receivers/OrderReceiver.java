@@ -2,17 +2,25 @@ package be.kdg.sa.warehouse.receivers;
 
 import be.kdg.sa.warehouse.config.RabbitTopology;
 import be.kdg.sa.warehouse.controller.dto.IngredientDto;
+import be.kdg.sa.warehouse.controller.dto.OrderDto;
 import be.kdg.sa.warehouse.services.IngredientService;
+import be.kdg.sa.warehouse.services.OrderService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class IngredientReceiver {
+public class OrderReceiver {
 
-    private final IngredientService ingredientService;
+    private final OrderService orderService;
 
-    public IngredientReceiver(IngredientService ingredientService) {
-        this.ingredientService = ingredientService;
+    public OrderReceiver(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @RabbitListener(queues = RabbitTopology.ORDER_INGREDIENT_QUEUE, messageConverter = "#{jackson2JsonMessageConverter}")
+    public void receiveOrderIngredients(OrderDto orderDto) {
+        orderService.addOrder(orderDto);
+
     }
 
     @RabbitListener(queues = RabbitTopology.ORDER_INGREDIENT_QUEUE, messageConverter = "#{jackson2JsonMessageConverter}")
