@@ -2,6 +2,7 @@ package be.kdg.sa.warehouse.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +16,7 @@ public class Ingredient {
     private String ingredientName;
 
     private double ingredientQuantity;
+
 
     public Ingredient(){
 

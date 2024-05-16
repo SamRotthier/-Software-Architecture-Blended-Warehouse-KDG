@@ -12,7 +12,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitTopology {
 
-    public final static String DELIVER = "deliver";
+    public final static String DELIVER_QUEUE = "deliver-queue";
+    public final static String ORDER_INGREDIENT_QUEUE = "order-ingredient-queue";
+    public final static String NEW_PRODUCT_QUEUE = "new-product-queue";
     public static final String TOPIC_EXCHANGE = "bakery-exchange";
 
 
@@ -21,16 +23,36 @@ public class RabbitTopology {
         return new TopicExchange(TOPIC_EXCHANGE);
     }
 
+    //this is a new deliver queue
+    @Bean
+    public Queue newOrderIngredientQueue() {
+        return new Queue(ORDER_INGREDIENT_QUEUE, false);
+    }
+
+    @Bean
+    public Binding topicNewOrderIngredientBinding() {
+        return BindingBuilder.bind(newOrderIngredientQueue()).to(topicExchange()).with(ORDER_INGREDIENT_QUEUE);
+    }
+
+    @Bean
+    public Queue newProductQueue() {
+        return new Queue(NEW_PRODUCT_QUEUE, false);
+    }
+
+    @Bean
+    public Binding topicNewProductBinding() {
+        return BindingBuilder.bind(newProductQueue()).to(topicExchange()).with(NEW_PRODUCT_QUEUE);
+    }
+
     @Bean
     public Queue newDeliverQueue() {
-        return new Queue(DELIVER, false);
+        return new Queue(DELIVER_QUEUE, false);
     }
 
     @Bean
     public Binding topicNewDeliverBinding() {
-        return BindingBuilder.bind(newDeliverQueue()).to(topicExchange()).with(DELIVER);
+        return BindingBuilder.bind(newDeliverQueue()).to(topicExchange()).with(DELIVER_QUEUE);
     }
-
 
 
     @Bean
