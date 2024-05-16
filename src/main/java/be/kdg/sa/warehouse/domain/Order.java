@@ -1,5 +1,6 @@
 package be.kdg.sa.warehouse.domain;
 
+import be.kdg.sa.warehouse.domain.Enum.OrderStatus;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -19,6 +20,8 @@ public class Order {
 
     private int quantity;
 
+    private OrderStatus orderStatus;
+
 
     public Order() {
 
@@ -33,6 +36,10 @@ public class Order {
 
     public UUID getOrderId() {
         return orderId;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
     public Timestamp getOrderTimestamp() {
@@ -61,5 +68,9 @@ public class Order {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }

@@ -1,6 +1,7 @@
 package be.kdg.sa.warehouse.Senders;
 
 import be.kdg.sa.warehouse.config.RabbitTopology;
+import be.kdg.sa.warehouse.domain.Enum.OrderStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -22,7 +23,8 @@ public class RestSender {
 
     @PostMapping("/send/{uuid}")
     public void sendOrder(@PathVariable UUID uuid) throws JsonProcessingException {
-        rabbitTemplate.convertAndSend(RabbitTopology.DELIVER_QUEUE, "DELIVER_QUEUE", objectMapper.writeValueAsString(new OrderMessage(uuid)));
+        OrderStatus orderStatus = OrderStatus.SUCCESS;
+        rabbitTemplate.convertAndSend(RabbitTopology.DELIVER_QUEUE, "DELIVER_QUEUE", objectMapper.writeValueAsString(new OrderMessage(uuid,orderStatus)));
     }
 
 }

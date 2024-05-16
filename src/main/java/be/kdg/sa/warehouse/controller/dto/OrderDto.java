@@ -1,5 +1,6 @@
 package be.kdg.sa.warehouse.controller.dto;
 
+import be.kdg.sa.warehouse.domain.Enum.OrderStatus;
 import jakarta.persistence.Id;
 
 import java.sql.Timestamp;
@@ -15,6 +16,8 @@ public class OrderDto {
     private UUID ingredientid;
 
     private int quantity;
+
+    private OrderStatus orderStatus;
 
 
     public OrderDto() {
@@ -44,6 +47,11 @@ public class OrderDto {
         return quantity;
     }
 
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+
     public void setOrderId(UUID orderId) {
         this.orderId = orderId;
     }
@@ -58,5 +66,10 @@ public class OrderDto {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }

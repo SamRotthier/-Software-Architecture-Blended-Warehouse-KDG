@@ -2,6 +2,7 @@ package be.kdg.sa.warehouse.services;
 
 import be.kdg.sa.warehouse.controller.dto.OrderDto;
 import be.kdg.sa.warehouse.controller.dto.ProductDto;
+import be.kdg.sa.warehouse.domain.Enum.OrderStatus;
 import be.kdg.sa.warehouse.domain.Order;
 import be.kdg.sa.warehouse.domain.Product;
 import be.kdg.sa.warehouse.repositories.OrderRepository;
@@ -25,6 +26,7 @@ public class OrderService {
         order.setOrderTimestamp(orderDto.getOrderTimestamp());
         order.setIngredientid(orderDto.getIngredientid());
         order.setQuantity(orderDto.getQuantity());
+        order.setOrderStatus(OrderStatus.UNSEND);
 
         orderRepository.save(order);
     }
