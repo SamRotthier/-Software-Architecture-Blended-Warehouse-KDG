@@ -9,6 +9,8 @@ import be.kdg.sa.warehouse.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
@@ -30,6 +32,11 @@ public class OrderService {
 
         orderRepository.save(order);
     }
+
+    public Order getOrderById(UUID uuid) {
+       return orderRepository.getOrderByOrderId(uuid);
+    }
+
 
 
 

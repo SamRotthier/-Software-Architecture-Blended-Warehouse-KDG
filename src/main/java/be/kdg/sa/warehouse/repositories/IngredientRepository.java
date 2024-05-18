@@ -11,5 +11,6 @@ import java.util.UUID;
 public interface IngredientRepository extends JpaRepository<Ingredient, UUID> {
 
     public Ingredient findIngredientByIngredientId(UUID ingredientId);
+    public Ingredient getIngredientByIngredientId(UUID ingredientId);
 
 }

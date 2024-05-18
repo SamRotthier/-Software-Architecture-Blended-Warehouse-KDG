@@ -25,6 +25,10 @@ public class IngredientService {
         return ingredientRepository.findAll();
     }
 
+    public Ingredient getIngredientById(UUID IngredientId){
+        return ingredientRepository.getIngredientByIngredientId(IngredientId);
+    }
+
     @Transactional
     public void changeQuantityOfIngredient (UUID ingredientId, double Quantity){
         Ingredient ingredient = ingredientRepository.findIngredientByIngredientId(ingredientId);
