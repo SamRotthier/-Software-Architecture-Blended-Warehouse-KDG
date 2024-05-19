@@ -5,6 +5,9 @@ import be.kdg.sa.warehouse.controller.dto.ProductDto;
 import be.kdg.sa.warehouse.domain.Enum.OrderStatus;
 import be.kdg.sa.warehouse.domain.Order;
 import be.kdg.sa.warehouse.domain.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import be.kdg.sa.warehouse.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,7 @@ import java.util.UUID;
 
 @Service
 public class OrderService {
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
     private final OrderRepository orderRepository;
 
     @Autowired
@@ -31,6 +35,7 @@ public class OrderService {
         order.setOrderStatus(OrderStatus.UNSEND);
 
         orderRepository.save(order);
+        logger.info("A new order was saved in the db with id: {}", order.getOrderId());
     }
 
     public Order getOrderById(UUID uuid) {

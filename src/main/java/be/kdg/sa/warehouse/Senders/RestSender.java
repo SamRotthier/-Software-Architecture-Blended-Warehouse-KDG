@@ -8,6 +8,8 @@ import be.kdg.sa.warehouse.services.IngredientService;
 import be.kdg.sa.warehouse.services.OrderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+
 @RestController
 public class RestSender {
+    private static final Logger logger = LoggerFactory.getLogger(RestSender.class);
     private final RabbitTemplate rabbitTemplate;
     private final ObjectMapper objectMapper;
 
@@ -32,8 +36,9 @@ public class RestSender {
 
     @PostMapping("/deliver/{uuid}")
     public void sendOrder(@PathVariable UUID uuid) throws JsonProcessingException {
+        logger.debug("Trying to sendDelivery message for UUID: {}", uuid);
         Order order = orderService.getOrderById(uuid);
-        Ingredient ingredient= ingredientService.getIngredientById(order.getOrderId());
+        Ingredient ingredient= ingredientService.getIngredientById(order.getIngredientid());
 
         if (ingredient.getingredientQuantity() >= order.getQuantity()){
             order.setOrderStatus(OrderStatus.SUCCESS);
@@ -41,7 +46,8 @@ public class RestSender {
             order.setOrderStatus(OrderStatus.FAILED);
         }
 
-        OrderStatus orderStatus = OrderStatus.SUCCESS;
-        rabbitTemplate.convertAndSend(RabbitTopology.DELIVER_QUEUE, "DELIVER_QUEUE", objectMapper.writeValueAsString(new OrderMessage(order)));
+        rabbitTemplate.convertAndSend(RabbitTopology.DELIVER_QUEUE, "DELIVER_QUEUE",
+                objectMapper.writeValueAsString(new OrderMessage(order)));
+        logger.info("Delivery message was successfully posted to the DELIVER_QUEUE for UUID: {} with status: {}", order.getOrderId(), order.getOrderStatus());
     }
 }
