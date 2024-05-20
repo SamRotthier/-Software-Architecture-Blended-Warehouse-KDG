@@ -35,5 +35,6 @@ public class IngredientService {
         Ingredient ingredient = ingredientRepository.findIngredientByIngredientId(ingredientId);
         ingredient.setingredientQuantity(Quantity);
         logger.info("The ingredient quantity was changed for: {} to quantity: {}", ingredient.getingredientName(), Quantity);
+        ingredientRepository.save(ingredient);
     }
 }

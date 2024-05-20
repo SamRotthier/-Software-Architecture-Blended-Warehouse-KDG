@@ -1,19 +1,14 @@
 package be.kdg.sa.warehouse.controller.dto;
 
 
-import be.kdg.sa.warehouse.domain.Ingredient;
 import be.kdg.sa.warehouse.domain.ProductIngredient;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 import java.util.List;
 import java.util.UUID;
 
 public class ProductDto {
 
-    private UUID ingredientId;
+    private UUID productId;
     private String productName;
 
     private List<ProductIngredient> ingredientList;
@@ -28,8 +23,8 @@ public class ProductDto {
         this.ingredientList = ingredientList;
     }
 
-    public UUID getIngredientId() {
-        return ingredientId;
+    public UUID getProductId() {
+        return productId;
     }
 
     public String getProductName() {
@@ -40,8 +35,8 @@ public class ProductDto {
         return ingredientList;
     }
 
-    public void setIngredientId(UUID ingredientId) {
-        this.ingredientId = ingredientId;
+    public void setProductId(UUID productId) {
+        this.productId = productId;
     }
 
     public void setProductName(String productName) {

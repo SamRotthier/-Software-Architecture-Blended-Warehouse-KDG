@@ -2,7 +2,6 @@ package be.kdg.sa.warehouse.domain;
 
 import jakarta.persistence.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,9 +10,9 @@ import java.util.UUID;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID ingredientId;
+    private UUID productId;
 
-    private String productName;
+    private String Name;
 
     @OneToMany(mappedBy = "product")
     private List<ProductIngredient> ingredientList;
@@ -23,22 +22,30 @@ public class Product {
 
     }
 
-    public Product(UUID ingredientId, String productName, List<ProductIngredient> ingredientList) {
-        this.ingredientId = ingredientId;
-        this.productName = productName;
+    public Product(UUID Id, String Name, List<ProductIngredient> ingredientList) {
+        this.productId = Id;
+        this.Name = Name;
         this.ingredientList = ingredientList;
     }
 
-    public String getProductName() {
-        return productName;
+    public UUID getProductId() {
+        return productId;
+    }
+
+    public String getName() {
+        return Name;
     }
 
     public List<ProductIngredient> getIngredientList() {
         return ingredientList;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProductId(UUID productId) {
+        this.productId = productId;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
     public void setIngredientList(List<ProductIngredient> ingredientList) {

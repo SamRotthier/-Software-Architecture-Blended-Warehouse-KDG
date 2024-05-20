@@ -19,7 +19,7 @@ public class Order {
     private UUID ingredientid;
 
     private int quantity;
-
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
 
