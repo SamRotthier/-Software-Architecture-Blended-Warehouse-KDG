@@ -1,10 +1,8 @@
 package be.kdg.sa.warehouse.receivers;
 
-import be.kdg.sa.warehouse.Senders.RestSender;
+import be.kdg.sa.warehouse.senders.RestSender;
 import be.kdg.sa.warehouse.config.RabbitTopology;
-import be.kdg.sa.warehouse.controller.dto.IngredientDto;
 import be.kdg.sa.warehouse.controller.dto.OrderDto;
-import be.kdg.sa.warehouse.services.IngredientService;
 import be.kdg.sa.warehouse.services.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

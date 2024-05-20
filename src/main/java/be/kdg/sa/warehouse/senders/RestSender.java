@@ -1,4 +1,4 @@
-package be.kdg.sa.warehouse.Senders;
+package be.kdg.sa.warehouse.senders;
 
 import be.kdg.sa.warehouse.config.RabbitTopology;
 import be.kdg.sa.warehouse.domain.Enum.OrderStatus;

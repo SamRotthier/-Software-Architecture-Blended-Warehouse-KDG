@@ -1,11 +1,9 @@
-package be.kdg.sa.warehouse.Senders;
+package be.kdg.sa.warehouse.senders;
 
 import be.kdg.sa.warehouse.domain.Enum.OrderStatus;
 import be.kdg.sa.warehouse.domain.Order;
-import be.kdg.sa.warehouse.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
