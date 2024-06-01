@@ -48,6 +48,9 @@ public class RestSender {
 
         rabbitTemplate.convertAndSend(RabbitTopology.DELIVER_QUEUE, "DELIVER_QUEUE",
                 objectMapper.writeValueAsString(new OrderMessage(order)));
+        //TODO Bekijken van onderstaande
+        //rabbitTemplate.convertAndSend(RabbitTopology.DELIVER_QUEUE, "DELIVER_QUEUE", (new OrderMessage(order)));
+
         logger.info("Delivery message was successfully posted to the DELIVER_QUEUE for UUID: {} with status: {}", order.getOrderId(), order.getOrderStatus());
     }
 }
