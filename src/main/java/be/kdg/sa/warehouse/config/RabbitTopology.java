@@ -14,7 +14,7 @@ public class RabbitTopology {
 
     public final static String DELIVER_QUEUE = "deliver-queue";
     public final static String ORDER_INGREDIENT_QUEUE = "order-ingredient-queue";
-    public final static String NEW_PRODUCT_QUEUE = "new-product-queue";
+    public final static String NEW_PRODUCT_WAREHOUSE_QUEUE = "new-product-warehouse-queue";
     public static final String TOPIC_EXCHANGE = "bakery-exchange";
 
 
@@ -36,12 +36,12 @@ public class RabbitTopology {
 
     @Bean
     public Queue newProductQueue() {
-        return new Queue(NEW_PRODUCT_QUEUE, false);
+        return new Queue(NEW_PRODUCT_WAREHOUSE_QUEUE, false);
     }
 
     @Bean
     public Binding topicNewProductBinding() {
-        return BindingBuilder.bind(newProductQueue()).to(topicExchange()).with(NEW_PRODUCT_QUEUE);
+        return BindingBuilder.bind(newProductQueue()).to(topicExchange()).with(NEW_PRODUCT_WAREHOUSE_QUEUE);
     }
 
     @Bean
