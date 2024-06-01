@@ -2,16 +2,19 @@ package be.kdg.sa.warehouse.domain;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "wa_productIngredient")
-//@IdClass(OrderIngredientId.class)
+
 public class ProductIngredient {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @ManyToOne
     private Product product;
 
-    @Id
     @ManyToOne
     private Ingredient ingredient;
 

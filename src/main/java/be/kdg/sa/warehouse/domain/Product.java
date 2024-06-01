@@ -9,7 +9,6 @@ import java.util.UUID;
 @Table(name="wa_product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID productId;
 
     private String Name;

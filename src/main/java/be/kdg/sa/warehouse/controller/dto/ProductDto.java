@@ -9,41 +9,43 @@ import java.util.UUID;
 public class ProductDto {
 
     private UUID productId;
-    private String productName;
+    private String name;
 
-    private List<ProductIngredient> ingredientList;
+    private List<ProductIngredientDto> ingredients;
+
+    // {"productId":"f68ede6e-c4a9-41ff-807d-405deb22de73","name":"test queue again","ingredients":[{"id":null,"name":"sugar","quantity":1}]}
 
 
     public ProductDto() {
 
     }
 
-    public ProductDto(String productName, List<ProductIngredient> ingredientList) {
-        this.productName = productName;
-        this.ingredientList = ingredientList;
+    public ProductDto(String productName, List<ProductIngredientDto> ingredients) {
+        this.name = productName;
+        this.ingredients = ingredients;
     }
 
     public UUID getProductId() {
         return productId;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public List<ProductIngredient> getIngredientList() {
-        return ingredientList;
+    public List<ProductIngredientDto> getIngredients() {
+        return ingredients;
     }
 
     public void setProductId(UUID productId) {
         this.productId = productId;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setIngredientList(List<ProductIngredient> ingredientList) {
-        this.ingredientList = ingredientList;
+    public void setIngredients(List<ProductIngredientDto> ingredients) {
+        this.ingredients = ingredients;
     }
 }

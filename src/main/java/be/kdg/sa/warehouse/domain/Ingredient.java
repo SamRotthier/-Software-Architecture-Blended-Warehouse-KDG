@@ -13,9 +13,12 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID ingredientId;
 
-    private String ingredientName;
+    private String name;
 
     private double ingredientQuantity;
+
+    @OneToMany(mappedBy = "ingredient")
+    private List<ProductIngredient> products;
 
 
     public Ingredient(){
@@ -24,13 +27,19 @@ public class Ingredient {
 
     public Ingredient(UUID ingredientId, String ingredientName){
         this.ingredientId = ingredientId;
-        this.ingredientName = ingredientName;
+        this.name = ingredientName;
     }
 
     public Ingredient(UUID ingredientId, String ingredientName, double ingredientQuantity){
         this.ingredientId = ingredientId;
-        this.ingredientName = ingredientName;
+        this.name = ingredientName;
         this.ingredientQuantity = ingredientQuantity;
+    }
+
+    public Ingredient(UUID ingredientId, String ingredientName, List<ProductIngredient> products) {
+        this.ingredientId = ingredientId;
+        this.name = ingredientName;
+        this.products = products;
     }
 
     public UUID getingredientId() {
@@ -38,7 +47,7 @@ public class Ingredient {
     }
 
     public String getingredientName() {
-        return ingredientName;
+        return name;
     }
 
     public double getingredientQuantity() {
@@ -50,8 +59,8 @@ public class Ingredient {
         this.ingredientId = ingredientId;
     }
 
-    public void setingredientName(String ingredientName) {
-        this.ingredientName = ingredientName;
+    public void setName(String ingredientName) {
+        this.name = ingredientName;
     }
 
     public void setingredientQuantity(double ingredientQuantity) {
