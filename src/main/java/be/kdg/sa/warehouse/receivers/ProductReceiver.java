@@ -17,7 +17,7 @@ public class ProductReceiver {
         this.productService = productService;
     }
 
-    @RabbitListener(queues = RabbitTopology.NEW_PRODUCT_QUEUE, messageConverter = "#{jackson2JsonMessageConverter}")
+    @RabbitListener(queues = RabbitTopology.NEW_PRODUCT_WAREHOUSE_QUEUE, messageConverter = "#{jackson2JsonMessageConverter}")
     public void receiveNewProduct(ProductDto productDto) {
         logger.info(String.valueOf(productDto));
         logger.info("Received a new product message with name: {}", productDto.getName());
