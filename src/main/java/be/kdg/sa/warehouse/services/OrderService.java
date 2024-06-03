@@ -9,6 +9,7 @@ import be.kdg.sa.warehouse.domain.Order;
 import be.kdg.sa.warehouse.domain.OrderIngredient;
 import be.kdg.sa.warehouse.domain.Product;
 import be.kdg.sa.warehouse.repositories.IngredientRepository;
+import be.kdg.sa.warehouse.repositories.OrderIngredientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,10 +28,12 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final IngredientRepository ingredientRepository;
 
-    @Autowired
-    public OrderService(OrderRepository orderRepository, IngredientRepository ingredientRepository){
+    private final OrderIngredientRepository orderIngredientRepository;
+
+    public OrderService(OrderRepository orderRepository,IngredientRepository ingredientRepository,OrderIngredientRepository OrderIngredientRepository){
         this.orderRepository=orderRepository;
         this.ingredientRepository=ingredientRepository;
+        this.orderIngredientRepository=OrderIngredientRepository;
     }
 
     public void addOrder(OrderIngredientsDto orderIngredientsDto) {
@@ -42,7 +45,7 @@ public class OrderService {
         orderRepository.save(order);
         logger.info("A new order was saved in the db with id: {}", order.getOrderId());
 
-        List<OrderIngredient> orderIngredients = new ArrayList<>();
+        //List<OrderIngredient> orderIngredients = new ArrayList<>();
 
         logger.info("Ingredients linked to order are saved to the db.");
         for (Map.Entry<UUID, Integer> entry : orderIngredientsDto.getIngredients().entrySet()) {
@@ -51,7 +54,8 @@ public class OrderService {
             orderIngredient.setOrder(order);
             orderIngredient.setIngredient(ingredient);
             orderIngredient.setQuantity(entry.getValue());
-            orderIngredients.add(orderIngredient);
+            orderIngredientRepository.save(orderIngredient);
+            //orderIngredients.add(orderIngredient);
         }
     }
 
