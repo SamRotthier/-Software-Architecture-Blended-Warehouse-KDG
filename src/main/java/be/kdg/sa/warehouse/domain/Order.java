@@ -20,7 +20,7 @@ public class Order {
     private Instant orderTimestamp;
 
     @OneToMany(mappedBy = "order")
-    private Set<OrderIngredient> ingredients;
+    private List<OrderIngredient> ingredients;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -43,11 +43,11 @@ public class Order {
     public Instant getOrderTimestamp() {
         return orderTimestamp;
     }
-    public Set<OrderIngredient> getIngredients() {
+    public List<OrderIngredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Set<OrderIngredient> ingredients) {
+    public void setIngredients(List<OrderIngredient> ingredients) {
         this.ingredients = ingredients;
     }
     public void setOrderId(UUID orderId) {
