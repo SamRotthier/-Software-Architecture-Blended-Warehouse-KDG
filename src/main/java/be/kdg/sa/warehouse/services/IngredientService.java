@@ -46,8 +46,8 @@ public class IngredientService {
 
 
     public Order stockUpdate (Order order){
+        logger.info("Starting the stock update of order:{}", order.getOrderId());
         List<OrderIngredient> ingredientList = order.getIngredients().stream().map(i -> new OrderIngredient(i.getId(), i.getOrder(), i.getIngredient(), i.getQuantity())).toList();
-
         for(int i=0; i <= ingredientList.toArray().length; i++ ){
             OrderIngredient ingredient = ingredientList.get(i);
             if (getIngredientById(ingredient.getIngredient().getingredientId()).getingredientQuantity() < ingredient.getQuantity()){
@@ -61,7 +61,7 @@ public class IngredientService {
             }
             i++;
         }
-
+        logger.info("Order stock count was:{}", order.getOrderStatus());
         if (order.getOrderStatus() == OrderStatus.SUCCESS){
             for(int i=0; i <= ingredientList.toArray().length; i++ ){
                 OrderIngredient orderIngredient = ingredientList.get(i);
@@ -71,7 +71,9 @@ public class IngredientService {
                 ingredientRepository.save(dbIngredient);
                 i++;
             }
+            logger.info("Order stock update was successful");
         }
+
         return order;
     }
 }
