@@ -4,6 +4,7 @@ import be.kdg.sa.warehouse.config.RabbitTopology;
 import be.kdg.sa.warehouse.domain.Enum.OrderStatus;
 import be.kdg.sa.warehouse.domain.Ingredient;
 import be.kdg.sa.warehouse.domain.Order;
+import be.kdg.sa.warehouse.domain.OrderIngredient;
 import be.kdg.sa.warehouse.services.IngredientService;
 import be.kdg.sa.warehouse.services.OrderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -38,16 +40,8 @@ public class RestSender {
     public void sendOrder(@PathVariable UUID uuid) {
         logger.debug("Trying to sendDelivery message for UUID: {}", uuid);
         Order order = orderService.getOrderById(uuid);
-        Ingredient ingredient= ingredientService.getIngredientById(order.getIngredientid());
-
-        if (ingredient.getingredientQuantity() >= order.getQuantity()){
-            order.setOrderStatus(OrderStatus.SUCCESS);
-        }else {
-            order.setOrderStatus(OrderStatus.FAILED);
-        }
-
-        rabbitTemplate.convertAndSend(RabbitTopology.DELIVER_QUEUE, "DELIVER_QUEUE", (new OrderMessage(order)));
-
+        Order checkedOrder=ingredientService.stockUpdate(order);
+        rabbitTemplate.convertAndSend(RabbitTopology.TOPIC_EXCHANGE, "deliver-queue", (new OrderMessage(checkedOrder)));
         logger.info("Delivery message was successfully posted to the DELIVER_QUEUE for UUID: {} with status: {}", order.getOrderId(), order.getOrderStatus());
     }
 }

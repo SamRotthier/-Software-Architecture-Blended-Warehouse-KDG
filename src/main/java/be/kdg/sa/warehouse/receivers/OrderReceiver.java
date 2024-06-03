@@ -23,10 +23,10 @@ public class OrderReceiver {
     }
 
     @RabbitListener(queues = RabbitTopology.ORDER_INGREDIENT_QUEUE, messageConverter = "#{jackson2JsonMessageConverter}")
-    public void receiveOrderIngredients(OrderIngredientsDto orderIngredientsDto) throws JsonProcessingException {
+    public void receiveOrderIngredients(OrderIngredientsDto orderIngredientsDto){
         logger.info("Received an order message with UUID: {}", orderIngredientsDto.getId());
         orderService.addOrder(orderIngredientsDto);
 
-        //restSender.sendOrder(orderIngredientsDto.getOrderId());
+        restSender.sendOrder(orderIngredientsDto.getId());
     }
 }

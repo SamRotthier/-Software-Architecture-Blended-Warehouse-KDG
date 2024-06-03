@@ -27,6 +27,7 @@ public class OrderIngredient{
         this.quantity = quantity;
     }
 
+
     public OrderIngredient() {
     }
 

@@ -50,7 +50,7 @@ public class Ingredient {
         return name;
     }
 
-    public double getingredientQuantity() {
+    public Integer getingredientQuantity() {
         return quantity;
     }
 
