@@ -15,7 +15,7 @@ public class Ingredient {
 
     private String name;
 
-    private double ingredientQuantity;
+    private Integer quantity;
 
     @OneToMany(mappedBy = "ingredient")
     private List<ProductIngredient> products;
@@ -30,10 +30,10 @@ public class Ingredient {
         this.name = ingredientName;
     }
 
-    public Ingredient(UUID ingredientId, String ingredientName, double ingredientQuantity){
+    public Ingredient(UUID ingredientId, String ingredientName, Integer quantity){
         this.ingredientId = ingredientId;
         this.name = ingredientName;
-        this.ingredientQuantity = ingredientQuantity;
+        this.quantity = quantity;
     }
 
     public Ingredient(UUID ingredientId, String ingredientName, List<ProductIngredient> products) {
@@ -51,7 +51,7 @@ public class Ingredient {
     }
 
     public double getingredientQuantity() {
-        return ingredientQuantity;
+        return quantity;
     }
 
 
@@ -63,7 +63,7 @@ public class Ingredient {
         this.name = ingredientName;
     }
 
-    public void setingredientQuantity(double ingredientQuantity) {
-        this.ingredientQuantity = ingredientQuantity;
+    public void setingredientQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

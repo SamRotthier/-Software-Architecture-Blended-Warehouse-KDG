@@ -35,7 +35,7 @@ public class RestSender {
     }
 
     @PostMapping("/deliver/{uuid}")
-    public void sendOrder(@PathVariable UUID uuid) throws JsonProcessingException {
+    public void sendOrder(@PathVariable UUID uuid) {
         logger.debug("Trying to sendDelivery message for UUID: {}", uuid);
         Order order = orderService.getOrderById(uuid);
         Ingredient ingredient= ingredientService.getIngredientById(order.getIngredientid());
@@ -46,10 +46,7 @@ public class RestSender {
             order.setOrderStatus(OrderStatus.FAILED);
         }
 
-        rabbitTemplate.convertAndSend(RabbitTopology.DELIVER_QUEUE, "DELIVER_QUEUE",
-                objectMapper.writeValueAsString(new OrderMessage(order)));
-        //TODO Bekijken van onderstaande
-        //rabbitTemplate.convertAndSend(RabbitTopology.DELIVER_QUEUE, "DELIVER_QUEUE", (new OrderMessage(order)));
+        rabbitTemplate.convertAndSend(RabbitTopology.DELIVER_QUEUE, "DELIVER_QUEUE", (new OrderMessage(order)));
 
         logger.info("Delivery message was successfully posted to the DELIVER_QUEUE for UUID: {} with status: {}", order.getOrderId(), order.getOrderStatus());
     }

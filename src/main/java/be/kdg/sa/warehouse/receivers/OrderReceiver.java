@@ -1,5 +1,6 @@
 package be.kdg.sa.warehouse.receivers;
 
+import be.kdg.sa.warehouse.controller.dto.OrderIngredientsDto;
 import be.kdg.sa.warehouse.senders.RestSender;
 import be.kdg.sa.warehouse.config.RabbitTopology;
 import be.kdg.sa.warehouse.controller.dto.OrderDto;
@@ -22,10 +23,10 @@ public class OrderReceiver {
     }
 
     @RabbitListener(queues = RabbitTopology.ORDER_INGREDIENT_QUEUE, messageConverter = "#{jackson2JsonMessageConverter}")
-    public void receiveOrderIngredients(OrderDto orderDto) throws JsonProcessingException {
-        logger.info("Received an order message with UUID: {}", orderDto.getOrderId());
-        orderService.addOrder(orderDto);
+    public void receiveOrderIngredients(OrderIngredientsDto orderIngredientsDto) throws JsonProcessingException {
+        logger.info("Received an order message with UUID: {}", orderIngredientsDto.getId());
+        orderService.addOrder(orderIngredientsDto);
 
-        restSender.sendOrder(orderDto.getOrderId());
+        //restSender.sendOrder(orderIngredientsDto.getOrderId());
     }
 }

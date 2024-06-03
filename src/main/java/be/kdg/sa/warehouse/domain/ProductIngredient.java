@@ -6,7 +6,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "wa_productIngredient")
-
 public class ProductIngredient {
 
     @Id

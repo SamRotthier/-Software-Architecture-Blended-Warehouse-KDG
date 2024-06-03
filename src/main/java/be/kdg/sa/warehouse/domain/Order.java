@@ -4,7 +4,10 @@ import be.kdg.sa.warehouse.domain.Enum.OrderStatus;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -14,62 +17,45 @@ public class Order {
     @Id
     private UUID orderId;
 
-    private Timestamp orderTimestamp;
+    private Instant orderTimestamp;
 
-    private UUID ingredientid;
+    @OneToMany(mappedBy = "order")
+    private Set<OrderIngredient> ingredients;
 
-    private int quantity;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
 
     public Order() {
-
     }
 
-    public Order(UUID orderId, Timestamp orderTimestamp, UUID ingredientid, int quantity) {
+    public Order(UUID orderId, Instant orderTimestamp, UUID ingredientid, int quantity) {
         this.orderId = orderId;
         this.orderTimestamp = orderTimestamp;
-        this.ingredientid = ingredientid;
-        this.quantity = quantity;
     }
 
     public UUID getOrderId() {
         return orderId;
     }
-
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }
-
-    public Timestamp getOrderTimestamp() {
+    public Instant getOrderTimestamp() {
         return orderTimestamp;
     }
-
-    public UUID getIngredientid() {
-        return ingredientid;
+    public Set<OrderIngredient> getIngredients() {
+        return ingredients;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public void setIngredients(Set<OrderIngredient> ingredients) {
+        this.ingredients = ingredients;
     }
-
     public void setOrderId(UUID orderId) {
         this.orderId = orderId;
     }
-
-    public void setOrderTimestamp(Timestamp orderTimestamp) {
+    public void setOrderTimestamp(Instant orderTimestamp) {
         this.orderTimestamp = orderTimestamp;
     }
-
-    public void setIngredientid(UUID ingredientid) {
-        this.ingredientid = ingredientid;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }

@@ -31,7 +31,7 @@ public class IngredientService {
     }
 
     @Transactional
-    public void changeQuantityOfIngredient (UUID ingredientId, double Quantity){
+    public void changeQuantityOfIngredient (UUID ingredientId, Integer Quantity){
         Ingredient ingredient = ingredientRepository.findIngredientByIngredientId(ingredientId);
         ingredient.setingredientQuantity(Quantity);
         logger.info("The ingredient quantity was changed for: {} to quantity: {}", ingredient.getingredientName(), Quantity);
