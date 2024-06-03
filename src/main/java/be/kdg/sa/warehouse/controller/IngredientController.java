@@ -39,7 +39,7 @@ public class IngredientController {
     @PatchMapping("/{id}/quantity")
     public ResponseEntity<?> changeQuantityOfIngredient(@Valid @PathVariable UUID id, @RequestParam Integer Quantity){
         ingredientService.changeQuantityOfIngredient(id,Quantity);
-        return ResponseEntity.status(HttpStatus.CREATED).body("The Quantity was changed to " + Quantity);
+        return ResponseEntity.status(HttpStatus.OK).body("The Quantity was changed to " + Quantity);
     }
 
 
