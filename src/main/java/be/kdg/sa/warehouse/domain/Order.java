@@ -19,7 +19,7 @@ public class Order {
 
     private Instant orderTimestamp;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderIngredient> ingredients;
 
     @Enumerated(EnumType.STRING)

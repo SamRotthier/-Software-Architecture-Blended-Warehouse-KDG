@@ -49,6 +49,7 @@ public class OrderService {
 
         logger.info("Ingredients linked to order are saved to the db.");
         for (Map.Entry<UUID, Integer> entry : orderIngredientsDto.getIngredients().entrySet()) {
+            logger.info("Ingredient ID: {}", entry.getKey());
             Ingredient ingredient = ingredientRepository.findById(entry.getKey()).orElseThrow();
             OrderIngredient orderIngredient = new OrderIngredient();
             orderIngredient.setOrder(order);

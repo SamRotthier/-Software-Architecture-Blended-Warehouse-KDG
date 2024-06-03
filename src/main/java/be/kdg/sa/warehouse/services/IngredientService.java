@@ -48,32 +48,31 @@ public class IngredientService {
     public Order stockUpdate (Order order){
         logger.info("Starting the stock update of order:{}", order.getOrderId());
         List<OrderIngredient> ingredientList = order.getIngredients().stream().map(i -> new OrderIngredient(i.getId(), i.getOrder(), i.getIngredient(), i.getQuantity())).toList();
-        for(int i=0; i <= ingredientList.toArray().length; i++ ){
+        for(int i=0; i < ingredientList.toArray().length; i++ ){
             OrderIngredient ingredient = ingredientList.get(i);
-            if (getIngredientById(ingredient.getIngredient().getingredientId()).getingredientQuantity() < ingredient.getQuantity()){
+            logger.info("Processing ingredient: {}", getIngredientById(ingredient.getIngredient().getingredientId()));
+            Integer ingredientQuantityDb = getIngredientById(ingredient.getIngredient().getingredientId()).getingredientQuantity();
+            if (ingredientQuantityDb == null || ingredientQuantityDb < ingredient.getQuantity()){
                 order.setOrderStatus(OrderStatus.FAILED);
                 orderRepository.save(order);
                 break;
-            } else if (i == ingredientList.toArray().length ) {
+            } else if (i == (ingredientList.toArray().length - 1)) {
                 order.setOrderStatus(OrderStatus.SUCCESS);
                 orderRepository.save(order);
                 break;
             }
-            i++;
         }
         logger.info("Order stock count was:{}", order.getOrderStatus());
         if (order.getOrderStatus() == OrderStatus.SUCCESS){
-            for(int i=0; i <= ingredientList.toArray().length; i++ ){
+            for(int i=0; i < ingredientList.toArray().length; i++ ){
                 OrderIngredient orderIngredient = ingredientList.get(i);
                 Ingredient dbIngredient = getIngredientById(orderIngredient.getIngredient().getingredientId());//.getingredientQuantity();
                 dbIngredient.setingredientQuantity(dbIngredient.getingredientQuantity() - orderIngredient.getQuantity());
 
                 ingredientRepository.save(dbIngredient);
-                i++;
             }
             logger.info("Order stock update was successful");
         }
-
         return order;
     }
 }

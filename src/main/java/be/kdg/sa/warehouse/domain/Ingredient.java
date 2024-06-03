@@ -10,7 +10,6 @@ import java.util.UUID;
 public class Ingredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID ingredientId;
 
     private String name;
