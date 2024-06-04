@@ -1,7 +1,6 @@
 package be.kdg.sa.warehouse.receivers;
 
 import be.kdg.sa.warehouse.controller.dto.OrderIngredientsDto;
-import be.kdg.sa.warehouse.receivers.messages.ConfirmationMessage;
 import be.kdg.sa.warehouse.senders.RestSender;
 import be.kdg.sa.warehouse.config.RabbitTopology;
 import be.kdg.sa.warehouse.services.OrderService;
@@ -29,10 +28,5 @@ public class OrderReceiver {
         orderService.addOrder(orderIngredientsDto);
 
         restSender.sendOrder(orderIngredientsDto.getId());
-    }
-
-    @RabbitListener(queues = RabbitTopology.CONFIRM_ORDER_INGREDIENT_QUEUE, messageConverter = "#{jackson2JsonMessageConverter}")
-    public void receiveConfirmOrder(ConfirmationMessage message){
-        logger.info("Received a confirmation:{}", message.getMessage());
     }
 }
