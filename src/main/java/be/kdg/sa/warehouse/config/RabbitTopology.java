@@ -42,7 +42,7 @@ public class RabbitTopology {
 
     @Bean
     public Binding topicNewConfirmOrderIngredientBinding() {
-        return BindingBuilder.bind(newOrderIngredientQueue()).to(topicExchange()).with(CONFIRM_ORDER_INGREDIENT_QUEUE);
+        return BindingBuilder.bind(newConfirmOrderIngredientQueue()).to(topicExchange()).with(CONFIRM_ORDER_INGREDIENT_QUEUE);
     }
 
     @Bean
