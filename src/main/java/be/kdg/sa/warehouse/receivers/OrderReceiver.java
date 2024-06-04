@@ -25,8 +25,15 @@ public class OrderReceiver {
     @RabbitListener(queues = RabbitTopology.ORDER_INGREDIENT_QUEUE, messageConverter = "#{jackson2JsonMessageConverter}")
     public void receiveOrderIngredients(OrderIngredientsDto orderIngredientsDto){
         logger.info("Received an order message with UUID: {}", orderIngredientsDto.getId());
+        logger.info("UUID: {}/ ingredientsmap (first):{}/ timestamp{}", orderIngredientsDto.getId(),orderIngredientsDto.getIngredients().keySet().stream().findFirst(),orderIngredientsDto.getBakeStartTimestamp());
+
         orderService.addOrder(orderIngredientsDto);
 
         restSender.sendOrder(orderIngredientsDto.getId());
+    }
+
+    @RabbitListener(queues = RabbitTopology.CONFIRM_ORDER_INGREDIENT_QUEUE, messageConverter = "#{jackson2JsonMessageConverter}")
+    public void receiveConfirmOrderIngredients(String message){
+        logger.info("Received a confirmation:{}", message);
     }
 }
