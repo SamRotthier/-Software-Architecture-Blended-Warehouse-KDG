@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,10 +39,10 @@ public class RestSender {
 
     @PostMapping("/deliver/{uuid}")
     public void sendOrder(@PathVariable UUID uuid) {
-        logger.debug("Trying to sendDelivery message for UUID: {}", uuid);
+        logger.info("Trying to sendDelivery message for UUID: {}", uuid);
         Order order = orderService.getOrderById(uuid);
-        Order checkedOrder=ingredientService.stockUpdate(order);
-        rabbitTemplate.convertAndSend(RabbitTopology.TOPIC_EXCHANGE, "deliver-queue", (new OrderMessage(checkedOrder)));
+        Order checkedOrder = ingredientService.stockUpdate(order);
+        rabbitTemplate.convertAndSend(RabbitTopology.TOPIC_EXCHANGE, "deliver-queue", (new OrderMessage(checkedOrder.getOrderId(), Instant.now(),checkedOrder.getOrderStatus())));
         logger.info("Delivery message was successfully posted to the DELIVER_QUEUE for UUID: {} with status: {}", order.getOrderId(), order.getOrderStatus());
     }
 }
