@@ -10,14 +10,34 @@ import java.time.Instant;
 import java.util.UUID;
 
 public class OrderMessage {
-    private final UUID uuid;
-    @CreationTimestamp
+    private final UUID id;
     private Instant currentTime;
     private OrderStatus orderStatus;
 
 
-    public OrderMessage(Order order) {
-        this.uuid = order.getOrderId();
-        this.orderStatus = order.getOrderStatus();
+    public OrderMessage(UUID id, Instant currentTime, OrderStatus orderStatus) {
+        this.id = id;
+        this.currentTime = currentTime;
+        this.orderStatus = orderStatus;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Instant getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(Instant currentTime) {
+        this.currentTime = currentTime;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }
