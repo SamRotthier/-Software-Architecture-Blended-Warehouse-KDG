@@ -7,6 +7,7 @@ import be.kdg.sa.warehouse.domain.Product;
 import be.kdg.sa.warehouse.domain.ProductIngredient;
 import be.kdg.sa.warehouse.repositories.IngredientRepository;
 import be.kdg.sa.warehouse.repositories.ProductIngredientRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import be.kdg.sa.warehouse.repositories.ProductRepository;
@@ -29,6 +30,7 @@ public class ProductService {
         this.ingredientRepository = ingredientRepository;
     }
 
+    @Transactional
     public void addProduct(ProductDto productDto) {
         Product product = new Product();
         product.setProductId(productDto.getProductId());

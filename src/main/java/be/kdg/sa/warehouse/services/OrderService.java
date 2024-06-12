@@ -10,6 +10,7 @@ import be.kdg.sa.warehouse.domain.OrderIngredient;
 import be.kdg.sa.warehouse.domain.Product;
 import be.kdg.sa.warehouse.repositories.IngredientRepository;
 import be.kdg.sa.warehouse.repositories.OrderIngredientRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,7 @@ public class OrderService {
         this.orderIngredientRepository=OrderIngredientRepository;
     }
 
+    @Transactional
     public void addOrder(OrderIngredientsDto orderIngredientsDto) {
 
         Order order = new Order();

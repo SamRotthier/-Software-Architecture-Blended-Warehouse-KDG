@@ -44,7 +44,7 @@ public class IngredientService {
         ingredientRepository.save(ingredient);
     }
 
-
+    @Transactional
     public Order stockUpdate (Order order){
         logger.info("Starting the stock update of order:{}", order.getOrderId());
         List<OrderIngredient> ingredientList = order.getIngredients().stream().map(i -> new OrderIngredient(i.getId(), i.getOrder(), i.getIngredient(), i.getQuantity())).toList();
