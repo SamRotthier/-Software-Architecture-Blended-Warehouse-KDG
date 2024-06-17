@@ -1,5 +1,8 @@
 package be.kdg.sa.warehouse.domain;
 
+import be.kdg.sa.warehouse.domain.Enum.ExpZone;
+import be.kdg.sa.warehouse.domain.Enum.FireZone;
+import be.kdg.sa.warehouse.domain.Enum.TempZone;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,6 +18,10 @@ public class Ingredient {
     private String name;
 
     private Integer quantity;
+
+    private ExpZone experationZone;
+    private TempZone temperatureZone;
+    private FireZone fireZone;
 
     @OneToMany(mappedBy = "ingredient")
     private List<ProductIngredient> products;
@@ -41,28 +48,68 @@ public class Ingredient {
         this.products = products;
     }
 
-    public UUID getingredientId() {
+    public Ingredient(UUID ingredientId, String name, Integer quantity, ExpZone experationZone, TempZone temperatureZone, FireZone fireZone) {
+        this.ingredientId = ingredientId;
+        this.name = name;
+        this.quantity = quantity;
+        this.experationZone = experationZone;
+        this.temperatureZone = temperatureZone;
+        this.fireZone = fireZone;
+    }
+
+    public UUID getIngredientId() {
         return ingredientId;
     }
 
-    public String getingredientName() {
-        return name;
-    }
-
-    public Integer getingredientQuantity() {
-        return quantity;
-    }
-
-
-    public void setingredientId(UUID ingredientId) {
+    public void setIngredientId(UUID ingredientId) {
         this.ingredientId = ingredientId;
     }
 
-    public void setName(String ingredientName) {
-        this.name = ingredientName;
+    public String getName() {
+        return name;
     }
 
-    public void setingredientQuantity(Integer quantity) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public ExpZone getExperationZone() {
+        return experationZone;
+    }
+
+    public void setExperationZone(ExpZone experationZone) {
+        this.experationZone = experationZone;
+    }
+
+    public TempZone getTemperatureZone() {
+        return temperatureZone;
+    }
+
+    public void setTemperatureZone(TempZone temperatureZone) {
+        this.temperatureZone = temperatureZone;
+    }
+
+    public FireZone getFireZone() {
+        return fireZone;
+    }
+
+    public void setFireZone(FireZone fireZone) {
+        this.fireZone = fireZone;
+    }
+
+    public List<ProductIngredient> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductIngredient> products) {
+        this.products = products;
     }
 }
