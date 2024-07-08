@@ -1,6 +1,9 @@
 package be.kdg.sa.warehouse.services;
 
+import be.kdg.sa.warehouse.domain.Enum.ExpZone;
+import be.kdg.sa.warehouse.domain.Enum.FireZone;
 import be.kdg.sa.warehouse.domain.Enum.OrderStatus;
+import be.kdg.sa.warehouse.domain.Enum.TempZone;
 import be.kdg.sa.warehouse.domain.Ingredient;
 import be.kdg.sa.warehouse.domain.Order;
 import be.kdg.sa.warehouse.domain.OrderIngredient;
@@ -39,8 +42,32 @@ public class IngredientService {
     @Transactional
     public void changeQuantityOfIngredient (UUID ingredientId, Integer Quantity){
         Ingredient ingredient = ingredientRepository.findIngredientByIngredientId(ingredientId);
-        ingredient.setingredientQuantity(Quantity);
-        logger.info("The ingredient quantity was changed for: {} to quantity: {}", ingredient.getingredientName(), Quantity);
+        ingredient.setQuantity(Quantity);
+        logger.info("The ingredient quantity was changed for: {} to quantity: {}", ingredient.getName(), Quantity);
+        ingredientRepository.save(ingredient);
+    }
+
+    @Transactional
+    public void changeTemperatureZoneOfIngredient (UUID ingredientId, TempZone tempZone){
+        Ingredient ingredient = ingredientRepository.findIngredientByIngredientId(ingredientId);
+        ingredient.setTemperatureZone(tempZone);
+        logger.info("The ingredient TempZone was changed for: {} to quantity: {}", ingredient.getName(), tempZone);
+        ingredientRepository.save(ingredient);
+    }
+
+    @Transactional
+    public void changeExperationZoneOfIngredient (UUID ingredientId, ExpZone expZone){
+        Ingredient ingredient = ingredientRepository.findIngredientByIngredientId(ingredientId);
+        ingredient.setExperationZone(expZone);
+        logger.info("The ingredient ExpZone was changed for: {} to quantity: {}", ingredient.getName(), expZone);
+        ingredientRepository.save(ingredient);
+    }
+
+    @Transactional
+    public void changeFireZoneOfIngredient (UUID ingredientId, FireZone fireZone){
+        Ingredient ingredient = ingredientRepository.findIngredientByIngredientId(ingredientId);
+        ingredient.setFireZone(fireZone);
+        logger.info("The ingredient FireZone was changed for: {} to quantity: {}", ingredient.getName(), fireZone);
         ingredientRepository.save(ingredient);
     }
 
@@ -50,8 +77,8 @@ public class IngredientService {
         List<OrderIngredient> ingredientList = order.getIngredients().stream().map(i -> new OrderIngredient(i.getId(), i.getOrder(), i.getIngredient(), i.getQuantity())).toList();
         for(int i=0; i < ingredientList.toArray().length; i++ ){
             OrderIngredient ingredient = ingredientList.get(i);
-            logger.info("Processing ingredient: {}", getIngredientById(ingredient.getIngredient().getingredientId()));
-            Integer ingredientQuantityDb = getIngredientById(ingredient.getIngredient().getingredientId()).getingredientQuantity();
+            logger.info("Processing ingredient: {}", getIngredientById(ingredient.getIngredient().getIngredientId()));
+            Integer ingredientQuantityDb = getIngredientById(ingredient.getIngredient().getIngredientId()).getQuantity();
             if (ingredientQuantityDb == null || ingredientQuantityDb < ingredient.getQuantity()){
                 order.setOrderStatus(OrderStatus.FAILED);
                 orderRepository.save(order);
@@ -66,8 +93,8 @@ public class IngredientService {
         if (order.getOrderStatus() == OrderStatus.SUCCESS){
             for(int i=0; i < ingredientList.toArray().length; i++ ){
                 OrderIngredient orderIngredient = ingredientList.get(i);
-                Ingredient dbIngredient = getIngredientById(orderIngredient.getIngredient().getingredientId());//.getingredientQuantity();
-                dbIngredient.setingredientQuantity(dbIngredient.getingredientQuantity() - orderIngredient.getQuantity());
+                Ingredient dbIngredient = getIngredientById(orderIngredient.getIngredient().getIngredientId());//.getingredientQuantity();
+                dbIngredient.setQuantity(dbIngredient.getQuantity() - orderIngredient.getQuantity());
 
                 ingredientRepository.save(dbIngredient);
             }

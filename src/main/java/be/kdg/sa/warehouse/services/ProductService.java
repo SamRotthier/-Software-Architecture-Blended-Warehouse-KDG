@@ -44,7 +44,7 @@ public class ProductService {
                 Ingredient ingredient = ingredientRepository.findByName(ingredientDto.getName());
                 if (ingredient == null) {
                     ingredient = new Ingredient();
-                    ingredient.setingredientId(ingredientDto.getId());
+                    ingredient.setIngredientId(ingredientDto.getId());
                     ingredient.setName(ingredientDto.getName());
                     ingredientRepository.save(ingredient);
                 }

@@ -6,18 +6,18 @@ public class IngredientDto {
 
     private UUID ingredientId;
 
-    private String ingredientName;
+    private String Name;
 
-    private double ingredientQuantity;
+    private int Quantity;
 
     public IngredientDto(){
 
     }
 
-    public IngredientDto(UUID ingredientId, String ingredientName, double ingredientQuantity){
+    public IngredientDto(UUID ingredientId, String Name, int Quantity){
         this.ingredientId = ingredientId;
-        this.ingredientName = ingredientName;
-        this.ingredientQuantity = ingredientQuantity;
+        this.Name = Name;
+        this.Quantity = Quantity;
     }
 
     public UUID getingredientId() {
@@ -25,11 +25,11 @@ public class IngredientDto {
     }
 
     public String getingredientName() {
-        return ingredientName;
+        return Name;
     }
 
-    public double getingredientQuantity() {
-        return ingredientQuantity;
+    public int getingredientQuantity() {
+        return Quantity;
     }
 
 
@@ -37,12 +37,12 @@ public class IngredientDto {
         this.ingredientId = ingredientId;
     }
 
-    public void setingredientName(String ingredientName) {
-        this.ingredientName = ingredientName;
+    public void setingredientName(String Name) {
+        this.Name = Name;
     }
 
-    public void setingredientQuantity(double ingredientQuantity) {
-        this.ingredientQuantity = ingredientQuantity;
+    public void setingredientQuantity(int Quantity) {
+        this.Quantity = Quantity;
     }
 
 

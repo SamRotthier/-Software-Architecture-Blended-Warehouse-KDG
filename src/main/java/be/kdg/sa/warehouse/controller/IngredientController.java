@@ -1,6 +1,9 @@
 package be.kdg.sa.warehouse.controller;
 
 import be.kdg.sa.warehouse.controller.dto.IngredientDto;
+import be.kdg.sa.warehouse.domain.Enum.ExpZone;
+import be.kdg.sa.warehouse.domain.Enum.FireZone;
+import be.kdg.sa.warehouse.domain.Enum.TempZone;
 import be.kdg.sa.warehouse.domain.Ingredient;
 import be.kdg.sa.warehouse.services.IngredientService;
 import jakarta.validation.Valid;
@@ -42,13 +45,30 @@ public class IngredientController {
         return ResponseEntity.status(HttpStatus.OK).body("The quantity was changed to " + quantity);
     }
 
+    @PatchMapping("/{id}/tempzone")
+    public ResponseEntity<?> changeTemperatureZoneOfIngredient(@Valid @PathVariable UUID id, @RequestParam TempZone tempzone){
+        ingredientService.changeTemperatureZoneOfIngredient(id,tempzone);
+        return ResponseEntity.status(HttpStatus.OK).body("The TempZone was changed to " + tempzone);
+    }
+
+    @PatchMapping("/{id}/expzone")
+    public ResponseEntity<?> changeExperationZoneOfIngredient(@Valid @PathVariable UUID id, @RequestParam ExpZone expzone){
+        ingredientService.changeExperationZoneOfIngredient(id,expzone);
+        return ResponseEntity.status(HttpStatus.OK).body("The ExpZone was changed to " + expzone);
+    }
+
+    @PatchMapping("/{id}/firezone")
+    public ResponseEntity<?> changeFireZoneOfIngredient(@Valid @PathVariable UUID id, @RequestParam FireZone firezone){
+        ingredientService.changeFireZoneOfIngredient(id,firezone);
+        return ResponseEntity.status(HttpStatus.OK).body("The FireZone was changed to " + firezone);
+    }
 
 
     private IngredientDto convertToIngredientDto(Ingredient ingredient){
         return new IngredientDto(
-                ingredient.getingredientId(),
-                ingredient.getingredientName(),
-                ingredient.getingredientQuantity()
+                ingredient.getIngredientId(),
+                ingredient.getName(),
+                ingredient.getQuantity()
         );
     }
 }
