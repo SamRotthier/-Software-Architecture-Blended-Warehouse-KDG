@@ -37,15 +37,16 @@ class IngredientControllerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(IngredientControllerTest.class);
 
-    private static final UUID ingredient_id = UUID.randomUUID();
+    private UUID ingredient_id;
 
-    @MockBean
+    @Autowired
     private IngredientRepository ingredientRepository;
 
     private Ingredient ingredient;
 
     @BeforeEach
     public void setUp(){
+        ingredient_id = UUID.randomUUID();
         logger.info("Create ingredient");
         IngredientDto ingredientDto = new IngredientDto(ingredient_id, "test ingredient", 10 );
 
