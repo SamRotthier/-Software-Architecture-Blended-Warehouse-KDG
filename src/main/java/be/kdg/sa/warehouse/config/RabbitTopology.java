@@ -24,7 +24,6 @@ public class RabbitTopology {
         return new TopicExchange(TOPIC_EXCHANGE);
     }
 
-    //this is a new deliver queue
     @Bean
     public Queue newOrderIngredientQueue() {
         return new Queue(ORDER_INGREDIENT_QUEUE, false);
@@ -64,7 +63,6 @@ public class RabbitTopology {
     public Binding topicNewDeliverBinding() {
         return BindingBuilder.bind(newDeliverQueue()).to(topicExchange()).with(DELIVER_QUEUE);
     }
-
 
     @Bean
     RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory){

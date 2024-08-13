@@ -11,13 +11,10 @@ public class OrderIngredient{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
     @ManyToOne
     private Order order;
-
     @ManyToOne
     private Ingredient ingredient;
-
     private Integer quantity;
 
     public OrderIngredient(UUID id, Order order, Ingredient ingredient, Integer quantity) {
@@ -29,22 +26,6 @@ public class OrderIngredient{
 
 
     public OrderIngredient() {
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public UUID getId() {
@@ -62,4 +43,24 @@ public class OrderIngredient{
     public Integer getQuantity() {
         return quantity;
     }
+
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+
+
 }

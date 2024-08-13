@@ -10,11 +10,7 @@ public class ProductDto {
 
     private UUID productId;
     private String name;
-
     private List<ProductIngredientDto> ingredients;
-
-    // {"productId":"f68ede6e-c4a9-41ff-807d-405deb22de73","name":"test queue again","ingredients":[{"id":null,"name":"sugar","quantity":1}]}
-
 
     public ProductDto() {
 
@@ -32,10 +28,10 @@ public class ProductDto {
     public String getName() {
         return name;
     }
-
     public List<ProductIngredientDto> getIngredients() {
         return ingredients;
     }
+
 
     public void setProductId(UUID productId) {
         this.productId = productId;

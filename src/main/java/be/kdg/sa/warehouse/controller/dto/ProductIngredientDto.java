@@ -24,20 +24,21 @@ public class ProductIngredientDto {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public void setQuantity(Integer quantity) {

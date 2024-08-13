@@ -21,7 +21,6 @@ public class ProductService {
     private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
     private final ProductRepository productRepository;
     private final ProductIngredientRepository productIngredientRepository;
-
     private final IngredientRepository ingredientRepository;
 
     public ProductService(ProductRepository productRepository, ProductIngredientRepository productIngredientRepository, IngredientRepository ingredientRepository) {
@@ -36,7 +35,6 @@ public class ProductService {
         product.setProductId(productDto.getProductId());
         product.setName(productDto.getName());
         Product savedProduct = productRepository.save(product);
-        // productingredient list
         List<ProductIngredientDto> ingredients = productDto.getIngredients();
 
         if (ingredients != null) {
@@ -52,7 +50,6 @@ public class ProductService {
             logger.info("Saving product ingredients: {}", ingredients);
             productIngredientRepository.saveAll(ingredients.stream().filter(i -> i.getName() != null).map(i -> new ProductIngredient(savedProduct, ingredientRepository.findByName(i.getName()), i.getQuantity())).toList());
         }
-
         logger.info("A new product was saved in the db with name: {}", product.getName());
     }
 

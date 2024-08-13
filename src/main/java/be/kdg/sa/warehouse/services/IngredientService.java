@@ -30,7 +30,6 @@ public class IngredientService {
         this.orderRepository=orderRepository;
     }
 
-
     public List<Ingredient> getAllIngredients() {
         return ingredientRepository.findAll();
     }

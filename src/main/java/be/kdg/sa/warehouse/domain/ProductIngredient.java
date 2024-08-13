@@ -13,10 +13,8 @@ public class ProductIngredient {
     private UUID id;
     @ManyToOne
     private Product product;
-
     @ManyToOne
     private Ingredient ingredient;
-
     private int quantity;
 
     public ProductIngredient() {

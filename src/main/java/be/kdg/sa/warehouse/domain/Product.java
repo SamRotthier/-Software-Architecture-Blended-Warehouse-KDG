@@ -10,9 +10,7 @@ import java.util.UUID;
 public class Product {
     @Id
     private UUID productId;
-
     private String Name;
-
     @OneToMany(mappedBy = "product")
     private List<ProductIngredient> ingredientList;
 
@@ -38,6 +36,7 @@ public class Product {
     public List<ProductIngredient> getIngredientList() {
         return ingredientList;
     }
+
 
     public void setProductId(UUID productId) {
         this.productId = productId;

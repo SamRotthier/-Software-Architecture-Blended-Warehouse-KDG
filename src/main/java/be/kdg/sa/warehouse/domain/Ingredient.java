@@ -14,11 +14,8 @@ public class Ingredient {
 
     @Id
     private UUID ingredientId;
-
     private String name;
-
     private Integer quantity;
-
     private ExpZone experationZone;
     private TempZone temperatureZone;
     private FireZone fireZone;

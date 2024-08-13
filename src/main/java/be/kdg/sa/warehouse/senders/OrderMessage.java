@@ -9,7 +9,6 @@ public class OrderMessage {
     private Instant currentTime;
     private OrderStatus orderStatus;
 
-
     public OrderMessage(UUID id, Instant currentTime, OrderStatus orderStatus) {
         this.id = id;
         this.currentTime = currentTime;
@@ -24,12 +23,13 @@ public class OrderMessage {
         return currentTime;
     }
 
-    public void setCurrentTime(Instant currentTime) {
-        this.currentTime = currentTime;
-    }
-
     public OrderStatus getOrderStatus() {
         return orderStatus;
+    }
+
+
+    public void setCurrentTime(Instant currentTime) {
+        this.currentTime = currentTime;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {

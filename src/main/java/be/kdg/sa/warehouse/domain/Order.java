@@ -37,25 +37,33 @@ public class Order {
     public UUID getOrderId() {
         return orderId;
     }
+
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }
+
     public Instant getOrderTimestamp() {
         return orderTimestamp;
     }
+
     public List<OrderIngredient> getIngredients() {
         return ingredients;
     }
 
+
+
     public void setIngredients(List<OrderIngredient> ingredients) {
         this.ingredients = ingredients;
     }
+
     public void setOrderId(UUID orderId) {
         this.orderId = orderId;
     }
+
     public void setOrderTimestamp(Instant orderTimestamp) {
         this.orderTimestamp = orderTimestamp;
     }
+
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }

@@ -63,7 +63,6 @@ public class IngredientController {
         return ResponseEntity.status(HttpStatus.OK).body("The FireZone was changed to " + firezone);
     }
 
-
     private IngredientDto convertToIngredientDto(Ingredient ingredient){
         return new IngredientDto(
                 ingredient.getIngredientId(),

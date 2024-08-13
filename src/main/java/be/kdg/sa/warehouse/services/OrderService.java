@@ -28,7 +28,6 @@ public class OrderService {
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
     private final OrderRepository orderRepository;
     private final IngredientRepository ingredientRepository;
-
     private final OrderIngredientRepository orderIngredientRepository;
 
     public OrderService(OrderRepository orderRepository,IngredientRepository ingredientRepository,OrderIngredientRepository OrderIngredientRepository){
@@ -39,15 +38,12 @@ public class OrderService {
 
     @Transactional
     public void addOrder(OrderIngredientsDto orderIngredientsDto) {
-
         Order order = new Order();
         order.setOrderId(orderIngredientsDto.getId());
         order.setOrderTimestamp(orderIngredientsDto.getBakeStartTimestamp());
         order.setOrderStatus(OrderStatus.UNSEND);
         orderRepository.save(order);
         logger.info("A new order was saved in the db with id: {}", order.getOrderId());
-
-        //List<OrderIngredient> orderIngredients = new ArrayList<>();
 
         logger.info("Ingredients linked to order are saved to the db.");
         for (Map.Entry<UUID, Integer> entry : orderIngredientsDto.getIngredients().entrySet()) {
@@ -58,7 +54,6 @@ public class OrderService {
             orderIngredient.setIngredient(ingredient);
             orderIngredient.setQuantity(entry.getValue());
             orderIngredientRepository.save(orderIngredient);
-            //orderIngredients.add(orderIngredient);
         }
     }
 
